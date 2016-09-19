@@ -3,6 +3,7 @@ package com.example.webonise.loginapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +45,9 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     private Button btnCancel;
     private Toast toast;
 
-    private String fname,lname,email,gender,address,securityQuestion,securityAnswer;
+    private TextInputLayout input_layout_fname,input_layout_lname,input_layout_contact,input_layout_email;
+
+    private String fname,lname,email,gender,address,securityQuestion,securityAnswer,contactstr;
     private Double contact;
     int contactint;
 
@@ -75,6 +78,11 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         btnLogin=(Button)findViewById(R.id.btnLogin);
         btnCancel=(Button)findViewById(R.id.btnCancel);
 
+        input_layout_fname=(TextInputLayout)findViewById(R.id.input_layout_fname);
+        input_layout_lname=(TextInputLayout)findViewById(R.id.input_layout_lname);
+        input_layout_contact=(TextInputLayout)findViewById(R.id.input_layout_contact);
+        input_layout_email=(TextInputLayout)findViewById(R.id.input_layout_email);
+
         radioGroup.setOnCheckedChangeListener(this);
         spinner.setOnItemSelectedListener(this);
         btnLogin.setOnClickListener(this);
@@ -101,25 +109,26 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
+
     @Override
     public void onClick(View v) {
-        fname=editFirstName.getText().toString();
-        lname=editLastName.getText().toString();
-        contact=Double.parseDouble(editContact.getText().toString());
-        contactint=contact.intValue();
-        email=editEmail.getText().toString();
-        address=editAddress.getText().toString();
-        securityQuestion=spinner.getSelectedItem().toString();
-        securityAnswer=editanswer.getText().toString();
+
         switch (v.getId()){
             case R.id.btnLogin:
+                if (!valiDateProfile()){
+                    Toast toast=Toast.makeText(getApplicationContext(),"Enter Data",Toast.LENGTH_SHORT);
+                }
+                else {
                     Intent intent=new Intent();
                     Bundle bundle=new Bundle();
+                    contact=Double.parseDouble(contactstr);
+                    contactint=contact.intValue();
                     UserProfile user=new UserProfile(fname,lname,contactint,email,gender,address,securityQuestion,securityAnswer);
                     bundle.putParcelable("user",user);
                     intent.putExtras(bundle);
                     intent.setClass(this,HomeActivity.class);
                     startActivity(intent);
+                }
                 break;
             case R.id.btnCancel:
                 System.exit(0);
@@ -128,6 +137,51 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                 break;
         }
     }
+
+    private boolean valiDateProfile() {
+        fname=editFirstName.getText().toString();
+        lname=editLastName.getText().toString();
+        contactstr=editContact.getText().toString();
+        email=editEmail.getText().toString();
+        address=editAddress.getText().toString();
+        securityQuestion=spinner.getSelectedItem().toString();
+        securityAnswer=editanswer.getText().toString();
+
+
+        if (fname.trim().isEmpty()){
+            input_layout_fname.setError("Enter First Name");
+            return false;
+        }
+        else {
+            input_layout_fname.setErrorEnabled(false);
+        }
+
+        if (lname.trim().isEmpty()){
+            input_layout_lname.setError("Enter Last Name");
+            return false;
+        }
+        else {
+            input_layout_lname.setErrorEnabled(false);
+        }
+
+        if (contactstr.length()>10 || contactstr.length()<10){
+            input_layout_contact.setError("Enter 10 Digit Contact Number");
+            return false;
+        }
+        else {
+            input_layout_contact.setErrorEnabled(false);
+        }
+
+        if (email.trim().isEmpty()){
+            input_layout_email.setError("Enter Email ID");
+            return false;
+        }
+        else {
+            input_layout_email.setErrorEnabled(false);
+        }
+        return true;
+    }
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         RadioButton checkedRadioButton=(RadioButton)findViewById(checkedId);
