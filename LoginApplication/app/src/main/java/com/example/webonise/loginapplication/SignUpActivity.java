@@ -19,6 +19,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+
 /**
  * Created by webonise on 16/9/16.
  */
@@ -54,7 +56,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up);
+       setContentView(R.layout.sign_up);
         Log.v(TAG,"In Signup onCreate");
         initViews();
     }
@@ -119,16 +121,19 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                     Toast toast=Toast.makeText(getApplicationContext(),"Enter Data",Toast.LENGTH_SHORT);
                 }
                 else {
-                    Intent intent=new Intent();
-                    Bundle bundle=new Bundle();
-                    contact=Double.parseDouble(contactstr);
-                    contactint=contact.intValue();
-                    UserProfile user=new UserProfile(fname,lname,contactint,email,gender,address,securityQuestion,securityAnswer);
-                    bundle.putParcelable("user",user);
-                    intent.putExtras(bundle);
-                    intent.setClass(this,HomeActivity.class);
+                    Intent intent=new Intent(this,ActivityMenu.class);
+//                    Bundle bundle=new Bundle();
+//                    contact=Double.parseDouble(contactstr);
+//                    contactint=contact.intValue();
+//                    UserProfile user=new UserProfile(fname,lname,contactint,email,gender,address,securityQuestion,securityAnswer);
+//                    bundle.putParcelable("user",user);
+//                    intent.putExtras(bundle);
+//                    intent.setClass(this,ActivityMenu.class);
                     startActivity(intent);
                 }
+
+
+
                 break;
             case R.id.btnCancel:
                 System.exit(0);
@@ -147,6 +152,16 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         securityQuestion=spinner.getSelectedItem().toString();
         securityAnswer=editanswer.getText().toString();
 
+//        realm.executeTransaction(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+////                UserProfile user = realm.createObject(UserProfile.class);
+////                user.setFname(fname);
+////                user.setEmail(email);
+//            }
+//        });
+
+//                realm = Realm.getDefaultConfiguration();
 
         if (fname.trim().isEmpty()){
             input_layout_fname.setError("Enter First Name");
@@ -180,6 +195,8 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             input_layout_email.setErrorEnabled(false);
         }
         return true;
+
+
     }
 
     @Override
@@ -218,4 +235,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         super.onDestroy();
         Log.v(TAG,"In Signup onDestroy");
     }
+
+
+
 }

@@ -3,13 +3,19 @@ package com.example.webonise.loginapplication;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by webonise on 19/9/16.
  */
 public class UserProfile implements Parcelable {
 
-    public String fname,lname,email,gender,address,securityQuestion,securityAnswer;
+    public String fname,lname,gender,address,securityQuestion,securityAnswer;
     int contact;
+
+    @PrimaryKey
+    private String email;
     public UserProfile(String fname,String lname,int contact,String email,String gender,String address,String securityQuestion,String securityAnswer){
         this.fname=fname;
         this.lname=lname;

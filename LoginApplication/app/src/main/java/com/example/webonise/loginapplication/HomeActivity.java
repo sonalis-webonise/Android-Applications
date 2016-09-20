@@ -23,11 +23,10 @@ public class HomeActivity extends AppCompatActivity {
         textHome=(TextView)findViewById(R.id.textHome);
         Bundle bundle=getIntent().getExtras();
         if (bundle!=null){
-            UserProfile user=bundle.getParcelable("user");
+            UserProfile user = bundle.getParcelable("user");
             textHome.setText(user.getFname() + " " + user.getLname() + "\n\n" + user.getContact() + "\n\n" + user.getEmail() + "\n\n" + user.getGender() + "\n\n" + user.getAddress() + "\n\n" + user.getSecurityQuestion() + "\n\n" + user.getSecurityAnswer());
         }
     }
-
 
     @Override
     protected void onStart() {

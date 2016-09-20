@@ -27,7 +27,7 @@
         <item name="android:textSize">@dimen/fontButton</item>
         <item name="android:background">@color/colorButton</item>
     </style>
-    
+
     <string name="hint_fname">First Name</string>
     <string name="hint_lname">Last Name</string>
     <string name="hint_contact">Contact</string>
@@ -36,6 +36,20 @@
     <string name="hint_cpassword">Confirm Password</string>
     <string name="hint_address">Address</string>
     <string name="hint_answer">Answer Here</string>
+
+    <string name="hint_modelno">Model Number</string>
+    <string name="hint_quantity">Quantity</string>
+
+
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>
