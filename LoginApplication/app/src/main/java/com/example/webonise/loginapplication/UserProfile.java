@@ -11,24 +11,26 @@ import io.realm.annotations.PrimaryKey;
  */
 public class UserProfile extends RealmObject implements Parcelable {
 
-    public String fname,lname,password,confirmPassword,gender,address,securityQuestion,securityAnswer;
+    public String fname, lname, password, confirmPassword, gender, address, securityQuestion, securityAnswer;
     int contact;
 
     @PrimaryKey
     private String email;
 
-    public UserProfile(){}
-    public UserProfile(String fname,String lname,int contact,String email,String password,String confirmPassword,String gender,String address,String securityQuestion,String securityAnswer){
-        this.fname=fname;
-        this.lname=lname;
-        this.contact=contact;
-        this.email=email;
-        this.password=password;
-        this.confirmPassword=confirmPassword;
-        this.gender=gender;
-        this.address=address;
-        this.securityQuestion=securityQuestion;
-        this.securityAnswer=securityAnswer;
+    public UserProfile() {
+    }
+
+    public UserProfile(String fname, String lname, int contact, String email, String password, String confirmPassword, String gender, String address, String securityQuestion, String securityAnswer) {
+        this.fname = fname;
+        this.lname = lname;
+        this.contact = contact;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.gender = gender;
+        this.address = address;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
     public void setFname(String fname) {
@@ -114,10 +116,10 @@ public class UserProfile extends RealmObject implements Parcelable {
     protected UserProfile(Parcel in) {
         fname = in.readString();
         lname = in.readString();
-        contact=in.readInt();
+        contact = in.readInt();
         email = in.readString();
-        password=in.readString();
-        confirmPassword=in.readString();
+        password = in.readString();
+        confirmPassword = in.readString();
         gender = in.readString();
         address = in.readString();
         securityQuestion = in.readString();

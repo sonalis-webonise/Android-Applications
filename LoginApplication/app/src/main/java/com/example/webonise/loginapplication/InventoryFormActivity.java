@@ -1,6 +1,7 @@
 package com.example.webonise.loginapplication;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +28,9 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
 
     Realm realm;
 
-    private int model,quantity;
+    private int model, quantity;
     private String category;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
         realm = Realm.getDefaultInstance();
         initViews();
 
-        List<String> itemSpinner=new ArrayList<>();
+        List<String> itemSpinner = new ArrayList<>();
         itemSpinner.add("Mobile");
         itemSpinner.add("Laptop");
         itemSpinner.add("Desktop");
@@ -50,11 +52,11 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
     }
 
     private void initViews() {
-        editmodel=(EditText)findViewById(R.id.editmodel);
-        editquantity=(EditText)findViewById(R.id.editquantity);
+        editmodel = (EditText) findViewById(R.id.editmodel);
+        editquantity = (EditText) findViewById(R.id.editquantity);
 
-        spinnerCategory=(Spinner)findViewById(R.id.spinnerCategory);
-        btnSave=(Button)findViewById(R.id.btnSave);
+        spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
+        btnSave = (Button) findViewById(R.id.btnSave);
 
 
         btnSave.setOnClickListener(this);
@@ -63,21 +65,12 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        saveToDatabase( model=Integer.parseInt(editmodel.getText().toString().trim()),
-                        category=spinnerCategory.getSelectedItem().toString(),
-                        quantity=Integer.parseInt(editquantity.getText().toString().trim()));
-//      getFromDatabase();
-        Toast toast=Toast.makeText(getApplicationContext(),"Data Saved Successfully",Toast.LENGTH_SHORT);
+        saveToDatabase(model = Integer.parseInt(editmodel.getText().toString().trim()),
+                category = spinnerCategory.getSelectedItem().toString(),
+                quantity = Integer.parseInt(editquantity.getText().toString().trim()));
         editmodel.setText("");
         editquantity.setText("");
     }
-//      --------Fetching Data From Database--------
-//    private void getFromDatabase() {
-//        InventoryClass inventoryResult = realm.where(InventoryClass.class).findFirst();
-//        String output="";
-//            output += inventoryResult;
-//        textInfo.setText(output);
-//    }
 
     private void saveToDatabase(final int model, final String category, final int quantity) {
 
@@ -90,6 +83,10 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
                 inventory.setQuantity(quantity);
             }
         });
+        AlertDialog.Builder builder = new AlertDialog.Builder(InventoryFormActivity.this);
+        builder.setMessage("Data Saved")
+                .setPositiveButton("OK",null);
+        builder.show();
     }
 
     @Override

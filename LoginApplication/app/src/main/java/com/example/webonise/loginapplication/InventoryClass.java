@@ -10,16 +10,17 @@ import io.realm.RealmObject;
  */
 public class InventoryClass extends RealmObject implements Parcelable {
 
-    public int model,quantity;
+    public int model, quantity;
     public String category;
 
-    public InventoryClass(){
+    public InventoryClass() {
 
     }
-    public InventoryClass(int model,String category,int quantity){
-        this.model=model;
-        this.category=category;
-        this.quantity=quantity;
+
+    public InventoryClass(int model, String category, int quantity) {
+        this.model = model;
+        this.category = category;
+        this.quantity = quantity;
     }
 
     protected InventoryClass(Parcel in) {

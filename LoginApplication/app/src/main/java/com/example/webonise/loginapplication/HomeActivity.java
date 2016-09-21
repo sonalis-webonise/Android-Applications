@@ -12,17 +12,18 @@ import android.widget.Toast;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    private final String TAG=getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
     private TextView textHome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-        Log.v(TAG,"In Home onCreate");
-        textHome=(TextView)findViewById(R.id.textHome);
-        Bundle bundle=getIntent().getExtras();
-        if (bundle!=null){
+        Log.v(TAG, "In Home onCreate");
+        textHome = (TextView) findViewById(R.id.textHome);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
             UserProfile user = bundle.getParcelable("user");
             textHome.setText(user.getFname() + " " + user.getLname() + "\n\n" + user.getContact() + "\n\n" + user.getEmail() + "\n\n" + user.getGender() + "\n\n" + user.getAddress() + "\n\n" + user.getSecurityQuestion() + "\n\n" + user.getSecurityAnswer());
         }
@@ -31,30 +32,30 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v(TAG,"In Home onStart");
+        Log.v(TAG, "In Home onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.v(TAG,"In Home onResume");
+        Log.v(TAG, "In Home onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.v(TAG,"In Home onPause");
+        Log.v(TAG, "In Home onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.v(TAG,"In Home onStop");
+        Log.v(TAG, "In Home onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.v(TAG,"In Home onDestroy");
+        Log.v(TAG, "In Home onDestroy");
     }
 }
