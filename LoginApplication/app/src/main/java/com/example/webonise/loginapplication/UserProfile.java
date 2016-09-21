@@ -9,18 +9,22 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by webonise on 19/9/16.
  */
-public class UserProfile implements Parcelable {
+public class UserProfile extends RealmObject implements Parcelable {
 
-    public String fname,lname,gender,address,securityQuestion,securityAnswer;
+    public String fname,lname,password,confirmPassword,gender,address,securityQuestion,securityAnswer;
     int contact;
 
     @PrimaryKey
     private String email;
-    public UserProfile(String fname,String lname,int contact,String email,String gender,String address,String securityQuestion,String securityAnswer){
+
+    public UserProfile(){}
+    public UserProfile(String fname,String lname,int contact,String email,String password,String confirmPassword,String gender,String address,String securityQuestion,String securityAnswer){
         this.fname=fname;
         this.lname=lname;
         this.contact=contact;
         this.email=email;
+        this.password=password;
+        this.confirmPassword=confirmPassword;
         this.gender=gender;
         this.address=address;
         this.securityQuestion=securityQuestion;
@@ -37,6 +41,14 @@ public class UserProfile implements Parcelable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public void setGender(String gender) {
@@ -71,6 +83,14 @@ public class UserProfile implements Parcelable {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -96,6 +116,8 @@ public class UserProfile implements Parcelable {
         lname = in.readString();
         contact=in.readInt();
         email = in.readString();
+        password=in.readString();
+        confirmPassword=in.readString();
         gender = in.readString();
         address = in.readString();
         securityQuestion = in.readString();
@@ -125,6 +147,8 @@ public class UserProfile implements Parcelable {
         dest.writeString(lname);
         dest.writeInt(contact);
         dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(confirmPassword);
         dest.writeString(gender);
         dest.writeString(address);
         dest.writeString(securityQuestion);

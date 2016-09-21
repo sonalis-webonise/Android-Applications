@@ -12,16 +12,15 @@ import android.widget.TextView;
 
 public class ActivityMenu extends AppCompatActivity implements View.OnClickListener {
 
-    TextView textInventoryInfo;
-
-
+    boolean login_status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_menu);
+
+        login_status=true;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        textInventoryInfo=(TextView)findViewById(R.id.textInventoryInfo);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -29,9 +28,7 @@ public class ActivityMenu extends AppCompatActivity implements View.OnClickListe
         Bundle bundle=getIntent().getExtras();
         if (bundle!=null){
             InventoryClass inventory = bundle.getParcelable("inventory");
-            textInventoryInfo.setText(inventory.getModel() +"\n\n" + inventory.getCategory() + "\n\n" + inventory.getQuantity());
         }
-
     }
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,6 +40,7 @@ public class ActivityMenu extends AppCompatActivity implements View.OnClickListe
         public boolean onOptionsItemSelected(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_logout:
+                    login_status=false;
                     Intent intent=new Intent(this,MainActivity.class);
                     startActivity(intent);
                     return true;

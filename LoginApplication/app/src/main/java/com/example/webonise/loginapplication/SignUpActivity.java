@@ -49,15 +49,18 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
     private TextInputLayout input_layout_fname,input_layout_lname,input_layout_contact,input_layout_email;
 
-    private String fname,lname,email,gender,address,securityQuestion,securityAnswer,contactstr;
-    private Double contact;
-    int contactint;
+    private String fname,lname,email,password,confirmPassword,gender,address,securityQuestion,securityAnswer,contactstr;
+
+    Realm realm;
+    int contact;
+    private double contactdouble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.sign_up);
         Log.v(TAG,"In Signup onCreate");
+        realm = Realm.getDefaultInstance();
         initViews();
     }
 
@@ -117,23 +120,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
         switch (v.getId()){
             case R.id.btnLogin:
-                if (!valiDateProfile()){
-                    Toast toast=Toast.makeText(getApplicationContext(),"Enter Data",Toast.LENGTH_SHORT);
-                }
-                else {
-                    Intent intent=new Intent(this,ActivityMenu.class);
-//                    Bundle bundle=new Bundle();
-//                    contact=Double.parseDouble(contactstr);
-//                    contactint=contact.intValue();
-//                    UserProfile user=new UserProfile(fname,lname,contactint,email,gender,address,securityQuestion,securityAnswer);
-//                    bundle.putParcelable("user",user);
-//                    intent.putExtras(bundle);
-//                    intent.setClass(this,ActivityMenu.class);
-                    startActivity(intent);
-                }
-
-
-
+                onLoginButtonClicked();
                 break;
             case R.id.btnCancel:
                 System.exit(0);
@@ -143,26 +130,51 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
-    private boolean valiDateProfile() {
+    private void onLoginButtonClicked() {
+
         fname=editFirstName.getText().toString();
         lname=editLastName.getText().toString();
         contactstr=editContact.getText().toString();
         email=editEmail.getText().toString();
+        password=editPassword.getText().toString();
+        confirmPassword=editConfirmPassword.getText().toString();
         address=editAddress.getText().toString();
         securityQuestion=spinner.getSelectedItem().toString();
         securityAnswer=editanswer.getText().toString();
 
-//        realm.executeTransaction(new Realm.Transaction() {
-//            @Override
-//            public void execute(Realm realm) {
-////                UserProfile user = realm.createObject(UserProfile.class);
-////                user.setFname(fname);
-////                user.setEmail(email);
-//            }
-//        });
+        contactdouble=Double.parseDouble(contactstr);
+        contact=(int)contactdouble;
 
-//                realm = Realm.getDefaultConfiguration();
+        if (!valiDateProfile()){
+            Toast toast=Toast.makeText(getApplicationContext(),"Enter Data",Toast.LENGTH_SHORT);
+        }
+        else {
+            saveToDatabase(fname,lname,contact,email,password,confirmPassword,address,securityQuestion,securityAnswer);
+            Intent intent=new Intent(this,ActivityMenu.class);
+            startActivity(intent);
+        }
+    }
 
+    private void saveToDatabase(final String fname, final String lname, final int contact, final String email, final String password, final String confirmPassword, final String address, final String securityQuestion, final String securityAnswer) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+                UserProfile user = realm.createObject(UserProfile.class);
+                user.setFname(fname);
+                user.setLname(lname);
+                user.setContact(contact);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setConfirmPassword(confirmPassword);
+                user.setAddress(address);
+                user.setSecurityQuestion(securityQuestion);
+                user.setSecurityAnswer(securityAnswer);
+            }
+        });
+        Log.v("message","Success on data storing");
+    }
+
+    private boolean valiDateProfile() {
         if (fname.trim().isEmpty()){
             input_layout_fname.setError("Enter First Name");
             return false;
@@ -195,8 +207,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             input_layout_email.setErrorEnabled(false);
         }
         return true;
-
-
     }
 
     @Override
@@ -234,8 +244,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onDestroy() {
         super.onDestroy();
         Log.v(TAG,"In Signup onDestroy");
+        realm.close();
     }
-
-
-
 }

@@ -15,10 +15,4 @@
     android:id="@+id/create"
     android:clickable="true">
 
-
-    <Button
-        style="@style/ButtonFont"
-        android:text="Add Form"
-        android:id="@+id/btnaddForm"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,12 @@ import io.realm.RealmResults;
 
 public class InventoryFormActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Realm realm;
     private EditText editmodel;
     private Spinner spinnerCategory;
     private EditText editquantity;
     private Button btnSave;
-    private TextView textInfo;
+
+    Realm realm;
 
     private int model,quantity;
     private String category;
@@ -46,8 +47,6 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
         spinnerCategory.setAdapter(dataAdapter);
-
-
     }
 
     private void initViews() {
@@ -57,59 +56,38 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
         spinnerCategory=(Spinner)findViewById(R.id.spinnerCategory);
         btnSave=(Button)findViewById(R.id.btnSave);
 
-        textInfo=(TextView)findViewById(R.id.textInfo);
 
         btnSave.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.btnSave:
-//                model=Integer.parseInt(editmodel.getText().toString().trim());
-//                category=spinnerCategory.getSelectedItem().toString();
-//                quantity=Integer.parseInt(editquantity.getText().toString().trim());
-
-                saveToDatabase( model=Integer.parseInt(editmodel.getText().toString().trim()),
+        saveToDatabase( model=Integer.parseInt(editmodel.getText().toString().trim()),
                         category=spinnerCategory.getSelectedItem().toString(),
                         quantity=Integer.parseInt(editquantity.getText().toString().trim()));
-                getFromDatabase();
-//                break;
-//            default:
-//                break;
-//        }
+//      getFromDatabase();
+        Toast toast=Toast.makeText(getApplicationContext(),"Data Saved Successfully",Toast.LENGTH_SHORT);
+        editmodel.setText("");
+        editquantity.setText("");
     }
-//        Intent intent=new Intent();
-//        Bundle bundle=new Bundle();
-//        intent.putExtras(bundle);
-//        intent.setClass(this,ActivityMenu.class);
-//        startActivity(intent);
-    private void getFromDatabase() {
-        InventoryClass inventoryResult = realm.where(InventoryClass.class).findFirst();
-        String output="";
-            output += inventoryResult.toString();
-        textInfo.setText(output);
-    }
+//      --------Fetching Data From Database--------
+//    private void getFromDatabase() {
+//        InventoryClass inventoryResult = realm.where(InventoryClass.class).findFirst();
+//        String output="";
+//            output += inventoryResult;
+//        textInfo.setText(output);
+//    }
 
     private void saveToDatabase(final int model, final String category, final int quantity) {
 
-        realm.executeTransactionAsync(new Realm.Transaction() {
+        realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm bgRealm) {
                 InventoryClass inventory = realm.createObject(InventoryClass.class);
                 inventory.setModel(model);
                 inventory.setCategory(category);
                 inventory.setQuantity(quantity);
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                Log.v("message","----Success----");
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                Log.e("message",error.getMessage());
             }
         });
     }
