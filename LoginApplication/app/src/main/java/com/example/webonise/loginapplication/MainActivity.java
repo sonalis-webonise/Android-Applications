@@ -2,6 +2,7 @@ package com.example.webonise.loginapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -32,12 +33,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String email,password;
     Toast toast;
 
-    public boolean login_status;
+    SharedPreferences sharedPreferences;
+    public boolean login_status=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences=getSharedPreferences("user",0);
+        Boolean islogin=sharedPreferences.getBoolean("userlogin",false);
+        if (islogin){
+            Intent intentHome = new Intent(this, ActivityMenu.class);
+            startActivity(intentHome);
+            finish();
+            return;
+        }
         realm = Realm.getDefaultInstance();
         Log.v(TAG, "In Login onCreate");
         initViews();
@@ -95,17 +105,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getPassword = userProfile.getPassword();
             if (getEmail.equals(emailText) && getPassword.equals(passwordText)) {
 //                alert.show();
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putBoolean("userlogin",true);
+                editor.commit();
+
                 Intent intentHome = new Intent(this, ActivityMenu.class);
                 startActivity(intentHome);
+                finish();
             } else {
                 if (!getEmail.equals(emailText)) {
-                    editEmail.setError("Enter Valid Mail Id");
+                    editEmail.setError(getString(R.string.error_login_valid_email));
                 }
                 else {
                     editEmail.clearFocus();
                 }
                 if (!getPassword.equals(passwordText)) {
-                    editPassword.setError("Enter Correct Password");
+                    editPassword.setError(getString(R.string.error_login_valid_password));
                 }
                 else {
                     editPassword.clearFocus();
@@ -117,14 +132,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean validateUser() {
 
         if (email.trim().isEmpty()) {
-            input_layout_email.setError("Enter Email Id");
+            input_layout_email.setError(getString(R.string.error_login_email));
             return false;
         }
         else {
             input_layout_email.setErrorEnabled(false);
         }
         if (password.trim().isEmpty()) {
-            input_layout_password.setError("Enter password");
+            input_layout_password.setError(getString(R.string.error_login_password));
             return false;
         }
         else {
@@ -133,6 +148,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    public void broadcastIntent(View view){
+        Intent intent = new Intent();
+        intent.setAction("com.tutorialspoint.CUSTOM_INTENT");
+        sendBroadcast(intent);
+    }
     @Override
     protected void onStart() {
         super.onStart();
