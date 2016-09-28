@@ -9,6 +9,8 @@ import android.os.Bundle;
 public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
+    public final static String user="user";
+    public final static String userlogin="userlogin";
     SharedPreferences sharedPreferences;
 
     public boolean login;
@@ -24,8 +26,8 @@ public class SplashScreen extends AppCompatActivity {
                 // This method will be executed once the timer is over
                 // Start your app main activity
 
-                sharedPreferences=getSharedPreferences("user",0);
-                Boolean islogin=sharedPreferences.getBoolean("userlogin",false);
+                sharedPreferences=getSharedPreferences(user,0);
+                Boolean islogin=sharedPreferences.getBoolean(userlogin,false);
                 if (islogin){
                     Intent intentHome = new Intent(SplashScreen.this,ActivityMenu.class);
                     startActivity(intentHome);

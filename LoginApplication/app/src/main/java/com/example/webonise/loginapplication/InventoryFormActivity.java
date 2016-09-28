@@ -21,6 +21,9 @@ import io.realm.RealmResults;
 
 public class InventoryFormActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String message="Data Saved";
+    public static final String ok="ok";
+
     private EditText editmodel;
     private Spinner spinnerCategory;
     private EditText editquantity;
@@ -66,6 +69,13 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
         editquantity.setText("");
     }
 
+    /**
+     *
+     * @param model
+     * @param category
+     * @param quantity
+     * Takes three param and store them in DB
+     */
     private void saveToDatabase(final int model, final String category, final int quantity) {
 
         realm.executeTransaction(new Realm.Transaction() {
@@ -78,8 +88,8 @@ public class InventoryFormActivity extends AppCompatActivity implements View.OnC
             }
         });
         AlertDialog.Builder builder = new AlertDialog.Builder(InventoryFormActivity.this);
-        builder.setMessage("Data Saved")
-                .setPositiveButton("OK",null);
+        builder.setMessage(message)
+                .setPositiveButton(ok,null);
         builder.show();
     }
 

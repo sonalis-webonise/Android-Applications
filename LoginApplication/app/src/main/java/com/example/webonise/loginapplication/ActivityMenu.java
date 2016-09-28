@@ -18,7 +18,10 @@ import android.widget.TextView;
 
 public class ActivityMenu extends AppCompatActivity implements View.OnClickListener {
 
-    public final static String CUSTOM_INTENT = "com.tutorialspoint.CUSTOM_INTENT";
+    public final static String inventory = "inventory";
+    public final static String userlogin = "userlogin";
+    public final static String user = "user";
+    public final static String CUSTOM_INTENT = "com.example.webonise.broadcastsample.ACTION_LOGOUT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,7 @@ public class ActivityMenu extends AppCompatActivity implements View.OnClickListe
         fab.setOnClickListener(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            InventoryClass inventory = bundle.getParcelable("inventory");
+            InventoryClass inventoryClass = bundle.getParcelable(inventory);
         }
     }
 
@@ -52,22 +55,26 @@ public class ActivityMenu extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Logout from the application on click of button
+     */
     public void onLogoutClicked() {
         broadcastIntent();
-        SharedPreferences sharedPreferences = getSharedPreferences("user", 0);
+        SharedPreferences sharedPreferences = getSharedPreferences(user, 0);
         SharedPreferences.Editor edit = sharedPreferences.edit();
-        edit.putBoolean("userlogin", false);
+        edit.putBoolean(userlogin, false);
         edit.commit();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Broadcast the intent on click of Logout button
+     */
     public void broadcastIntent() {
         Intent intentBroadcast = new Intent();
-        intentBroadcast.setAction("com.example.webonise.broadcastsample.ACTION_LOGOUT");
-//        intentBroadcast.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        intentBroadcast.setAction(CUSTOM_INTENT);
         sendBroadcast(intentBroadcast);
-
     }
 
     @Override

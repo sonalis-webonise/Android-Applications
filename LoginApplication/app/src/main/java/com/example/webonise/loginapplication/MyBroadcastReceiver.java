@@ -14,22 +14,24 @@ import android.widget.Toast;
  */
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
-    public boolean loginStatus=false;
+    public static final String userlogin = "userlogin";
+    public static final String user = "user";
+    public static final String CUSTOM_INTENT = "com.example.ACTION_LOGOUT";
+    public static final String intentMessage = "Login Application Receiver Intent";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         //String action = intent.getAction();
+        if (intent.getAction().equalsIgnoreCase(CUSTOM_INTENT)) {
+            //PendingIntent pendingIntent=PendingIntent.getBroadcast(context,0,intent,0);
+            Log.v("Message", "Logging out from login");
+            Toast.makeText(context, intentMessage, Toast.LENGTH_LONG).show();
 
-        //PendingIntent pendingIntent=PendingIntent.getBroadcast(context,0,intent,0);
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.example.webonise.broadcastsample.ACTION_LOGOUT");
-        Log.v("Message", "Logging out from login");
-        Toast.makeText(context, "Intent", Toast.LENGTH_LONG).show();
-
-        SharedPreferences sharedPreferences=context.getSharedPreferences("user",0);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putBoolean("userlogin",false);
-        editor.commit();
-
+            SharedPreferences sharedPreferences = context.getSharedPreferences(user, 0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(userlogin, false);
+            editor.commit();
+        }
 
     }
 }

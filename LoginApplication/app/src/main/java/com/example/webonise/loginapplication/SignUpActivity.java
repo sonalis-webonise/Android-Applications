@@ -26,6 +26,8 @@ import io.realm.Realm;
 public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private final String TAG = getClass().getSimpleName();
+    public static final String aplhaPattern = "([a-zA-Z]{3,30}\\s*)+";
+    public static final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private EditText editFirstName;
     private EditText editLastName;
@@ -106,7 +108,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
     }
 
     @Override
@@ -128,6 +129,9 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+    /**
+     * Get the information filled in the Form and calls ValidateProfile() and SaveToDatabase() methods
+     */
     private void onLoginButtonClicked() {
 
         firstname = editFirstName.getText().toString();
@@ -140,8 +144,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         securityQuestion = spinner.getSelectedItem().toString();
         securityAnswer = editAnswer.getText().toString();
 
-
-
         if (!valiDateProfile()) {
             Toast toast = Toast.makeText(getApplicationContext(), "Enter Data", Toast.LENGTH_SHORT);
         } else {
@@ -151,6 +153,19 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+    /**
+     *
+     * @param fname
+     * @param lname
+     * @param contact
+     * @param email
+     * @param password
+     * @param confirmPassword
+     * @param address
+     * @param securityQuestion
+     * @param securityAnswer
+     * Takes params and store them in DB
+     */
     private void saveToDatabase(final String fname, final String lname, final int contact, final String email, final String password, final String confirmPassword, final String address, final String securityQuestion, final String securityAnswer) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -170,9 +185,13 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         Log.v("message", "Success on data storing");
     }
 
+    /**
+     * Validates the input fields
+     * On giving empty input and incorrect information displays Error
+     * @return
+     */
     private boolean valiDateProfile() {
-        String aplhaPattern = "([a-zA-Z]{3,30}\\s*)+";
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
         if (firstname.trim().isEmpty()) {
             input_layout_fname.setError(getString(R.string.error_fname));
             return false;
