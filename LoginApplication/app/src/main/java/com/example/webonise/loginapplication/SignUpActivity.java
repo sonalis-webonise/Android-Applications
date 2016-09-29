@@ -2,30 +2,22 @@ package com.example.webonise.loginapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-=======
-import android.support.v7.app.AppCompatActivity;
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-<<<<<<< HEAD
 import android.widget.RadioGroup;
-=======
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import io.realm.Realm;
 
 /**
@@ -63,36 +55,11 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     Realm realm;
     int contact;
     private double contactdouble;
-=======
-/**
- * Created by webonise on 16/9/16.
- */
-public class SignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
-
-    EditText editFirstName;
-    EditText editLastName;
-    EditText editContact;
-    EditText editEmail;
-    EditText editPassword;
-    EditText editConfirmPassword;
-
-    RadioButton radioButtonMale;
-    RadioButton radioButtonFemale;
-
-    EditText editAddress;
-    EditText editanswer;
-
-    Spinner spinner;
-    Button btnLogin;
-    Button btnCancel;
-    Toast toast;
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
-<<<<<<< HEAD
         Log.v(TAG, "In Signup onCreate");
         realm = Realm.getDefaultInstance();
         initViews();
@@ -127,47 +94,12 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         spinner=(Spinner)findViewById(R.id.spinner);
 
         radioGroup.setOnCheckedChangeListener(this);
-=======
-
-        initViews();
-
-    }
-
-    private void initViews(){
-        spinner=(Spinner)findViewById(R.id.spinner);
-
-        editFirstName=(EditText)findViewById(R.id.editFirstName);
-        editLastName=(EditText)findViewById(R.id.editLastName);
-        editContact=(EditText)findViewById(R.id.editContact);
-        editEmail=(EditText)findViewById(R.id.editEmail);
-        editPassword=(EditText)findViewById(R.id.editPassword);
-        editConfirmPassword=(EditText)findViewById(R.id.editConfirmPassword);
-        editAddress=(EditText)findViewById(R.id.editAddress);
-        editanswer=(EditText)findViewById(R.id.editanswer);
-
-        radioButtonMale=(RadioButton)findViewById(R.id.radioButtonMale);
-        radioButtonFemale=(RadioButton)findViewById(R.id.radioButtonFemale);
-
-        btnLogin=(Button)findViewById(R.id.btnLogin);
-        btnCancel=(Button)findViewById(R.id.btnCancel);
-
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
         spinner.setOnItemSelectedListener(this);
         btnLogin.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
 
-<<<<<<< HEAD
         // Creating adapter for spinner
         ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(this, R.array.spinner_security , android.R.layout.simple_spinner_item);
-=======
-        List<String> itemSpinner=new ArrayList<>();
-        itemSpinner.add("What is your nick name?");
-        itemSpinner.add("Who is your favourite actor?");
-        itemSpinner.add("Which school you went?");
-        itemSpinner.add("First pet you had?");
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemSpinner);
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
@@ -176,38 +108,18 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-<<<<<<< HEAD
-=======
-        String item = parent.getItemAtPosition(position).toString();
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
     }
 
     @Override
     public void onClick(View v) {
-<<<<<<< HEAD
 
         switch (v.getId()) {
             case R.id.btnLogin:
                 onLoginButtonClicked();
-=======
-        switch (v.getId()){
-            case R.id.btnLogin:
-                validatefName();
-                validatelName();
-                validateContact();
-                validateEmail();
-                validatePassword();
-                validateAddress();
-//                toHomePage();
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
                 break;
             case R.id.btnCancel:
                 System.exit(0);
@@ -217,7 +129,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
-<<<<<<< HEAD
     /**
      * Get the information filled in the Form and calls ValidateProfile() and SaveToDatabase() methods
      */
@@ -383,63 +294,5 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         super.onDestroy();
         Log.v(TAG, "In Signup onDestroy");
         realm.close();
-=======
-    private void validatefName() {
-        if (editFirstName.getText().toString().trim().isEmpty()){
-            toast=Toast.makeText(getApplicationContext(),"Enter First Name",Toast.LENGTH_SHORT);
-            toast.show();
-        }else {
-            String fname=editFirstName.getText().toString();
-        }
-    }
-
-    private void validatelName() {
-        if (editLastName.getText().toString().trim().isEmpty()){
-            toast=Toast.makeText(getApplicationContext(),"Enter Last Name",Toast.LENGTH_SHORT);
-            toast.show();
-        }else {
-            String lname=editLastName.getText().toString();
-        }
-    }
-
-    private void validateContact() {
-        if (editContact.getText().toString().trim().isEmpty()){
-            toast=Toast.makeText(getApplicationContext(),"Enter Contact",Toast.LENGTH_SHORT);
-            toast.show();
-        }else {
-            double contact;
-            contact=Double.parseDouble(editContact.getText().toString());
-        }
-    }
-
-    private void validateEmail() {
-        if (editEmail.getText().toString().trim().isEmpty()){
-            toast=Toast.makeText(getApplicationContext(),"Enter Email id",Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        else {
-            String email=editEmail.getText().toString();
-        }
-
-    }
-
-    private void validatePassword() {
-        if (editPassword.getText().toString().trim().isEmpty() || editConfirmPassword.getText().toString().trim().isEmpty()){
-                toast=Toast.makeText(getApplicationContext(),"Enter password",Toast.LENGTH_SHORT);
-        }
-
-    }
-
-    private void validateAddress() {
-        if (editAddress.getText().toString().trim().isEmpty()){
-            toast=Toast.makeText(getApplicationContext(),"Enter Address",Toast.LENGTH_SHORT);
-        }
-    }
-
-    private void toHomePage(){
-        Intent intentLogin=new Intent(this,MainActivity.class);
-        startActivity(intentLogin);
-
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
     }
 }

@@ -3,7 +3,6 @@
     package="com.example.webonise.loginapplication">
 
     <application
-<<<<<<< HEAD
         android:name=".MyApplicationConfig"
         android:allowBackup="true"
         android:icon="@mipmap/android_launcher"
@@ -14,21 +13,12 @@
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar">
-=======
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".HomeActivity" />
@@ -44,10 +34,6 @@
             </intent-filter>
         </receiver>
 
-=======
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".HomeActivity"></activity>
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
     </application>
 
 </manifest>

@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
-<<<<<<< HEAD
 apply plugin: 'realm-android'
-=======
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 
 android {
     compileSdkVersion 24

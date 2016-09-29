@@ -2,23 +2,17 @@ package com.example.webonise.loginapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-=======
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-<<<<<<< HEAD
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -44,21 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     SharedPreferences sharedPreferences;
     public boolean login_status = true;
-=======
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    EditText editEmail;
-    EditText editPassword;
-
-    Button btnLogin;
-    Button btnSignup;
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
         sharedPreferences = getSharedPreferences(user, 0);
         Boolean islogin = sharedPreferences.getBoolean(userlogin, false);
         if (islogin) {
@@ -85,18 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         input_layout_email = (TextInputLayout) findViewById(R.id.input_layout_loginEmail);
         input_layout_password = (TextInputLayout) findViewById(R.id.input_layout_loginPassword);
-=======
-        initViews();
-    }
-
-    private void initViews(){
-
-        editEmail=(EditText)findViewById(R.id.editEmail);
-        editPassword=(EditText)findViewById(R.id.editPassword);
-
-        btnLogin=(Button)findViewById(R.id.btnLogin);
-        btnSignup=(Button)findViewById(R.id.btnSignup);
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 
         btnLogin.setOnClickListener(this);
         btnSignup.setOnClickListener(this);
@@ -105,24 +77,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-<<<<<<< HEAD
         switch (v.getId()) {
             case R.id.btnLogin:
                 onLoginClick();
                 break;
             case R.id.btnSignup:
                 Intent intentSignup = new Intent(this, SignUpActivity.class);
-=======
-        String emailText=editEmail.getText().toString();
-        String passwordText=editPassword.getText().toString();
-
-        switch (v.getId()){
-            case R.id.btnLogin:
-                validateEmailandPassword();
-                break;
-            case R.id.btnSignup:
-                Intent intentSignup=new Intent(this,SignUpActivity.class);
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
                 startActivity(intentSignup);
                 break;
             default:
@@ -130,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-<<<<<<< HEAD
     /**
      * Verifies the user and Get logged In
      * Get the user email and password from Realm DB and verifies
@@ -218,19 +177,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         Log.v(TAG, "In Login onDestroy");
     }
-=======
-    private void validateEmailandPassword() {
-
-        Toast toast;
-        if (editEmail.getText().toString().trim().isEmpty() || editPassword.getText().toString().trim().isEmpty()){
-            toast=Toast.makeText(getApplicationContext(),"Enter Email and Password",Toast.LENGTH_LONG);
-            toast.show();
-        }else {
-            Intent intentHome=new Intent(this,HomeActivity.class);
-            startActivity(intentHome);
-            editEmail.setText("");
-            editPassword.setText("");
-        }
-    }
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 }

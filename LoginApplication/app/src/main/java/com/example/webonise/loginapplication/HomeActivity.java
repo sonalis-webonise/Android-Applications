@@ -1,36 +1,25 @@
 package com.example.webonise.loginapplication;
 
-<<<<<<< HEAD
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-=======
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 
 /**
  * Created by webonise on 16/9/16.
  */
 public class HomeActivity extends AppCompatActivity {
 
-<<<<<<< HEAD
     private final String TAG = getClass().getSimpleName();
 
     private TextView textHome;
 
-=======
-    TextView textHome;
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-<<<<<<< HEAD
         Log.v(TAG, "In Home onCreate");
         textHome = (TextView) findViewById(R.id.textHome);
         Bundle bundle = getIntent().getExtras();
@@ -69,12 +58,4 @@ public class HomeActivity extends AppCompatActivity {
         super.onDestroy();
         Log.v(TAG, "In Home onDestroy");
     }
-=======
-
-        textHome=(TextView)findViewById(R.id.textHome);
-        textHome.setText("Logged In Successfully");
-    }
-
-
->>>>>>> 09a458e9758bfeaba29ed0707f6237c464b09b59
 }
