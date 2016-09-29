@@ -14,6 +14,11 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_loginEmail"
+    tools:context="com.example.webonise.loginapplication.MainActivity">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
@@ -25,6 +30,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_loginPassword"
+        android:id="@+id/input_layout_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
